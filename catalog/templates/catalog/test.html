@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Map time!</h1>
+
+  <div id='map' width="100%" style='height:400px'></div>
+
+  <iframe width="600" height="400" src="https://data.gov.sg/dataset/dengue-clusters/resource/801ce5ce-fb99-4211-94fe-9d8ca5e182d4/view/07e4bfc9-8675-4534-959f-768be06aeeab" frameBorder="0"> </iframe>
+
+  <script>
+    mapboxgl.accessToken = '{{ mapbox_access_token }}'; 
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v10',
+      center: [103.852,1.34],
+      zoom: 9.5,
+    });
+  </script>
+  
+  
+{% endblock %}
