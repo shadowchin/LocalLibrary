@@ -1,18 +1,19 @@
 from django.shortcuts import render
-
-# Create your views here.
-
+from django.contrib.auth.decorators import login_required
 from catalog.models import Book, Author, BookInstance, Genre, Language
 
+@login_required
 def dashboard(request):
     return render(request, 'catalog/dashboard.html', {})
 
+@login_required
 def test(request):
     # TODO: move this token to Django settings from an environment variable
     # found in the Mapbox account settings and getting started instructions
     # see https://www.mapbox.com/account/ under the "Access tokens" section
     mapbox_access_token = 'pk.eyJ1Ijoic2hhZG93Y2hpbiIsImEiOiJja2FxbXUwdjgwYmw1MnlsZ3M5eXg4NDQ0In0.aP5N1o59VTKaX_jJlKRcyQ'
     return render(request, 'catalog/test.html', { 'mapbox_access_token': mapbox_access_token } )
+
 
 def index(request):
     """View function for home page of site."""
@@ -52,15 +53,19 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 from django.views import generic
+
 class BookListView(generic.ListView):
     model = Book
     paginate_by = 2
 
+
 class BookDetailView(generic.DetailView):
     model = Book
 
+
 class AuthorListView(generic.ListView):
     model = Author
+
 
 class AuthorDetailView(generic.DetailView):
     model = Author
